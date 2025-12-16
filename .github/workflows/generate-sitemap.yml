@@ -1,0 +1,59 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 4 * * *"   # всеки ден
+  workflow_dispatch:
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate sitemap.xml
+        run: |
+          python << 'EOF'
+          import os
+          from datetime import datetime
+
+          BASE_URL = "https://revbull.github.io/BetUS-Sportsbook-Casino"
+
+          urls = []
+
+          for root, dirs, files in os.walk("."):
+              for file in files:
+                  if file == "index.html":
+                      path = root.replace("./", "").replace("index.html", "")
+                      if path.startswith(".git") or path.startswith("node_modules"):
+                          continue
+                      url = BASE_URL + "/" + path if path else BASE_URL + "/"
+                      urls.append(url)
+
+          sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
+          sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+          for url in sorted(set(urls)):
+              sitemap.append("  <url>")
+              sitemap.append(f"    <loc>{url}</loc>")
+              sitemap.append(f"    <lastmod>{datetime.utcnow().date()}</lastmod>")
+              sitemap.append("    <changefreq>daily</changefreq>")
+              sitemap.append("    <priority>0.8</priority>")
+              sitemap.append("  </url>")
+
+          sitemap.append("</urlset>")
+
+          with open("sitemap.xml", "w") as f:
+              f.write("\n".join(sitemap))
+          EOF
+
+      - name: Commit sitemap
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add sitemap.xml
+          git commit -m "Auto-generate sitemap.xml" || echo "No changes"
+          git push
