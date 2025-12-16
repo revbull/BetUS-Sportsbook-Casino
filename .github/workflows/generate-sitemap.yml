@@ -20,7 +20,8 @@ jobs:
 
       - name: Generate sitemap.xml
         run: |
-          echo 'import os
+          python - <<'PYCODE'
+          import os
           from datetime import datetime
 
           BASE_URL = "https://revbull.github.io/BetUS-Sportsbook-Casino"
@@ -38,8 +39,8 @@ jobs:
                   else:
                       urls.append(f"{BASE_URL}/")
 
-          sitemap = ["<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>"]
-          sitemap.append("<urlset xmlns=\\"http://www.sitemaps.org/schemas/sitemap/0.9\\">")
+          sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
+          sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 
           today = str(datetime.utcnow().date())
           for url in sorted(set(urls)):
@@ -53,10 +54,8 @@ jobs:
           sitemap.append("</urlset>")
 
           with open("sitemap.xml", "w", encoding="utf-8") as f:
-              f.write("\\n".join(sitemap))
-          ' > generate_sitemap.py
-
-          python generate_sitemap.py
+              f.write("\n".join(sitemap))
+          PYCODE
 
       - name: Commit sitemap
         run: |
