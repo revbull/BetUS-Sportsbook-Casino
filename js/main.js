@@ -1,6 +1,8 @@
 // ============================
-// DATA CONFIG
+// CONFIG
 // ============================
+
+const AFFILIATE_URL = "YOUR_AFFILIATE_LINK"; // Replace
 
 const leaguesBySport = {
   Basketball: ["NBA", "WNBA"],
@@ -15,32 +17,33 @@ const leaguesBySport = {
   Tennis: ["ATP Tour", "WTA Tour"]
 };
 
-const betTypes = [
-  "Moneyline",
-  "Point Spread",
-  "Over / Under"
-];
+const betTypes = ["Moneyline", "Point Spread", "Over / Under"];
 
 // ============================
-// DOM ELEMENTS
+// DOM
 // ============================
 
 const sportSelect = document.getElementById("sport");
 const leagueSelect = document.getElementById("league");
 const form = document.getElementById("aiForm");
 const resultBox = document.getElementById("aiResult");
+const resetBtn = document.getElementById("aiReset");
+const yearEl = document.getElementById("year");
+const stickyCta = document.getElementById("stickyCta");
 
 // ============================
-// EVENTS
+// INIT
 // ============================
 
-sportSelect.addEventListener("change", () => {
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// Populate leagues when sport changes
+sportSelect?.addEventListener("change", () => {
   leagueSelect.innerHTML = `<option value="">Select League</option>`;
-
   const leagues = leaguesBySport[sportSelect.value];
   if (!leagues) return;
 
-  leagues.forEach(league => {
+  leagues.forEach((league) => {
     const option = document.createElement("option");
     option.value = league;
     option.textContent = league;
@@ -48,52 +51,85 @@ sportSelect.addEventListener("change", () => {
   });
 });
 
-form.addEventListener("submit", (e) => {
+// Submit handler
+form?.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const sport = sportSelect.value;
-  const league = leagueSelect.value;
-  const matchup = document.getElementById("matchup").value;
+  const sport = sportSelect.value?.trim();
+  const league = leagueSelect.value?.trim();
+  const matchup = document.getElementById("matchup").value?.trim();
 
   if (!sport || !league || !matchup) {
-    alert("Please complete all fields.");
+    alert("Please complete Sport, League, and Matchup.");
     return;
   }
 
-  generatePrediction(sport, league, matchup);
+  renderPrediction({ sport, league, matchup });
+});
+
+resetBtn?.addEventListener("click", () => {
+  form.reset();
+  leagueSelect.innerHTML = `<option value="">Select League</option>`;
+  resultBox.style.display = "none";
+  resultBox.innerHTML = "";
+});
+
+// Sticky CTA show/hide on scroll
+window.addEventListener("scroll", () => {
+  const y = window.scrollY || 0;
+  if (!stickyCta) return;
+
+  if (y > 520) {
+    stickyCta.classList.add("is-visible");
+    stickyCta.setAttribute("aria-hidden", "false");
+  } else {
+    stickyCta.classList.remove("is-visible");
+    stickyCta.setAttribute("aria-hidden", "true");
+  }
 });
 
 // ============================
-// AI PREDICTION ENGINE (Mock)
+// PREDICTION ENGINE (Mock)
 // ============================
 
-function generatePrediction(sport, league, matchup) {
+function renderPrediction({ sport, league, matchup }) {
   const probability = randomBetween(52, 68);
   const betType = betTypes[Math.floor(Math.random() * betTypes.length)];
   const confidence = getConfidence(probability);
 
+  const lean = getLeanText(betType);
+  const safeMatchup = escapeHtml(matchup);
+
+  const confidenceLabel = `Confidence: ${confidence}`;
+  const probabilityLabel = `Win Probability: ${probability}%`;
+
   resultBox.style.display = "block";
   resultBox.innerHTML = `
     <h3>AI Prediction</h3>
-    <p><strong>Sport:</strong> ${sport} (${league})</p>
-    <p><strong>Matchup:</strong> ${matchup}</p>
-    <p><strong>Suggested Bet:</strong> ${betType}</p>
-    <p><strong>Estimated Win Probability:</strong> ${probability}%</p>
-    <p><strong>AI Confidence:</strong> ${confidence}</p>
+    <p><strong>Sport:</strong> ${escapeHtml(sport)} (${escapeHtml(league)})</p>
+    <p><strong>Matchup:</strong> ${safeMatchup}</p>
+    <p><strong>Suggested Market:</strong> ${betType}</p>
+    <p><strong>Lean:</strong> ${lean}</p>
 
-    <a href="YOUR_AFFILIATE_LINK" class="btn primary">
-      Bet on ${matchup} at BetUS
-    </a>
+    <div class="metric" aria-label="Prediction metrics">
+      <span class="badge">${probabilityLabel}</span>
+      <span class="badge">${confidenceLabel}</span>
+    </div>
 
-    <p class="disclaimer">
-      This prediction is generated for informational purposes only and does not guarantee any outcome.
+    <div style="margin-top:12px;">
+      <a class="btn btn--primary btn--block" href="${AFFILIATE_URL}" rel="nofollow sponsored">
+        Bet on ${safeMatchup} at BetUS
+      </a>
+    </div>
+
+    <p class="fineprint" style="margin-top:10px;">
+      This prediction is informational only and does not guarantee outcomes. Odds and availability are subject to BetUS terms.
     </p>
   `;
-}
 
-// ============================
-// HELPERS
-// ============================
+  // Smooth scroll result into view (better UX)
+  resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -103,4 +139,26 @@ function getConfidence(probability) {
   if (probability >= 65) return "High";
   if (probability >= 58) return "Medium";
   return "Low";
+}
+
+function getLeanText(betType) {
+  switch (betType) {
+    case "Moneyline":
+      return "Slight edge to the perceived stronger side (informational).";
+    case "Point Spread":
+      return "Lean toward the side offering value at current spread levels.";
+    case "Over / Under":
+      return "Lean based on pace/scoring tendencies (informational).";
+    default:
+      return "Informational lean based on historical patterns.";
+  }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
