@@ -20,6 +20,43 @@ const leaguesBySport = {
 const betTypes = ["Moneyline", "Point Spread", "Over / Under"];
 
 // ============================
+// URL PARAM PRESETS
+// ============================
+
+function applyUrlPresets() {
+  const params = new URLSearchParams(window.location.search);
+  const sportParam = params.get("sport");
+
+  if (!sportParam) return;
+
+  // Map URL param -> sport/league
+  const presetMap = {
+    NFL: { sport: "Football", league: "NFL" },
+    NBA: { sport: "Basketball", league: "NBA" },
+    MLB: { sport: "Baseball", league: "MLB" },
+    NHL: { sport: "Hockey", league: "NHL" },
+    Soccer: { sport: "Soccer", league: "Premier League" }
+  };
+
+  const preset = presetMap[sportParam];
+  if (!preset) return;
+
+  // Set sport
+  sportSelect.value = preset.sport;
+  sportSelect.dispatchEvent(new Event("change"));
+
+  // Small delay to ensure leagues are populated
+  setTimeout(() => {
+    leagueSelect.value = preset.league;
+  }, 50);
+
+  // Optional UX improvement
+  const aiSection = document.getElementById("ai-predictions");
+  aiSection?.scrollIntoView({ behavior: "smooth" });
+}
+
+
+// ============================
 // DOM
 // ============================
 
@@ -86,6 +123,7 @@ window.addEventListener("scroll", () => {
     stickyCta.classList.remove("is-visible");
     stickyCta.setAttribute("aria-hidden", "true");
   }
+    applyUrlPresets();
 });
 
 // ============================
