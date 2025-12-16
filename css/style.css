@@ -449,5 +449,28 @@ a{ color: inherit; }
     font-size: 14px;
   }
 }
+.news-feed {
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+}
+
+.news-feed li {
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.news-feed a {
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+@media (max-width: 768px) {
+  .news-feed li {
+    font-size: 14px;
+  }
+}
 
 
