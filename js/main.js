@@ -131,6 +131,24 @@ function renderPrediction({ sport, league, matchup }) {
   resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+// Escalate sticky CTA after AI interaction
+let aiUsed = false;
+
+function escalateStickyCta() {
+  if (!stickyCta) return;
+  stickyCta.querySelector("strong").textContent = "Exclusive BetUS Bonus";
+  stickyCta.querySelector(".muted").textContent =
+    "Limited availability for new US players";
+}
+
+// Hook after prediction render
+const _renderPrediction = renderPrediction;
+renderPrediction = function(args) {
+  aiUsed = true;
+  _renderPrediction(args);
+  escalateStickyCta();
+};
+
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
