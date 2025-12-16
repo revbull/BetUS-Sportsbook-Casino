@@ -1,0 +1,52 @@
+name: Update AI Predictions Feed
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # всеки ден в 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-feed:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate AI feed
+        run: |
+          python << 'EOF'
+          import json
+          import random
+          from datetime import datetime
+
+          matchups = [
+              ("NFL", "Chiefs vs Bills", "Moneyline"),
+              ("NFL", "49ers vs Eagles", "Point Spread"),
+              ("NBA", "Lakers vs Celtics", "Over / Under"),
+              ("NBA", "Bucks vs Heat", "Moneyline"),
+              ("NBA", "Warriors vs Suns", "Over / Under")
+          ]
+
+          data = []
+          for sport, matchup, market in random.sample(matchups, 3):
+              data.append({
+                  "sport": sport,
+                  "matchup": matchup,
+                  "market": market,
+                  "confidence": random.choice(["Low", "Medium", "High"]),
+                  "url": f"/ai-sports-predictions/{sport.lower()}/",
+                  "updated": datetime.utcnow().isoformat() + "Z"
+              })
+
+          with open("feeds/ai-predictions.json", "w") as f:
+              json.dump(data, f, indent=2)
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add feeds/ai-predictions.json
+          git commit -m "Auto-update AI predictions feed" || echo "No changes"
+          git push
