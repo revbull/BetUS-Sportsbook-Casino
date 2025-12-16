@@ -20,6 +20,215 @@ const leaguesBySport = {
 const betTypes = ["Moneyline", "Point Spread", "Over / Under"];
 
 // ============================
+// ALL SPORTS PRESETS + CONTENT
+// ============================
+
+const sportPresets = {
+  // FOOTBALL
+  NFL: {
+    sport: "Football",
+    league: "NFL",
+    title: "NFL AI Predictions",
+    intro: "Generate AI-powered NFL betting predictions for informational use. Analyze NFL matchups and compare odds at BetUS.",
+    helper: "Popular markets: spreads, totals, player props."
+  },
+  NCAAF: {
+    sport: "Football",
+    league: "NCAAF",
+    title: "College Football AI Predictions",
+    intro: "AI-powered college football predictions for informational analysis across major NCAAF matchups.",
+    helper: "Best for spreads and totals."
+  },
+
+  // BASKETBALL
+  NBA: {
+    sport: "Basketball",
+    league: "NBA",
+    title: "NBA AI Predictions",
+    intro: "Generate AI NBA betting predictions and analyze basketball matchups before betting at BetUS.",
+    helper: "Strong for totals and player props."
+  },
+  WNBA: {
+    sport: "Basketball",
+    league: "WNBA",
+    title: "WNBA AI Predictions",
+    intro: "AI-generated WNBA predictions for informational basketball analysis.",
+    helper: "Lower totals, pace-driven edges."
+  },
+
+  // BASEBALL
+  MLB: {
+    sport: "Baseball",
+    league: "MLB",
+    title: "MLB AI Predictions",
+    intro: "Use AI-powered MLB predictions to analyze pitching matchups and totals.",
+    helper: "Best for totals and moneyline."
+  },
+  NPB: {
+    sport: "Baseball",
+    league: "NPB",
+    title: "NPB AI Predictions",
+    intro: "AI predictions for Japan’s NPB baseball league.",
+    helper: "Market efficiency differs from MLB."
+  },
+  KBO: {
+    sport: "Baseball",
+    league: "KBO",
+    title: "KBO AI Predictions",
+    intro: "AI-powered KBO betting insights for informational purposes.",
+    helper: "Totals-driven league."
+  },
+
+  // HOCKEY
+  NHL: {
+    sport: "Hockey",
+    league: "NHL",
+    title: "NHL AI Predictions",
+    intro: "AI NHL predictions analyzing team performance and scoring trends.",
+    helper: "Goalie matchups matter."
+  },
+
+  // MMA
+  UFC: {
+    sport: "MMA",
+    league: "UFC",
+    title: "UFC AI Predictions",
+    intro: "AI-powered UFC fight predictions based on historical performance.",
+    helper: "Moneyline-focused markets."
+  },
+  Bellator: {
+    sport: "MMA",
+    league: "Bellator",
+    title: "Bellator AI Predictions",
+    intro: "Informational AI predictions for Bellator MMA events.",
+    helper: "Smaller cards, higher variance."
+  },
+
+  // MOTORSPORT
+  F1: {
+    sport: "Motorsport",
+    league: "Formula 1",
+    title: "Formula 1 AI Predictions",
+    intro: "AI-based Formula 1 race predictions for informational analysis.",
+    helper: "Qualifying pace is key."
+  },
+  NASCAR: {
+    sport: "Motorsport",
+    league: "NASCAR",
+    title: "NASCAR AI Predictions",
+    intro: "AI NASCAR predictions analyzing track history and performance.",
+    helper: "Track type matters."
+  },
+
+  // SOCCER
+  EPL: {
+    sport: "Soccer",
+    league: "Premier League",
+    title: "Premier League AI Predictions",
+    intro: "AI-powered Premier League soccer predictions.",
+    helper: "Totals and match result markets."
+  },
+  MLS: {
+    sport: "Soccer",
+    league: "MLS",
+    title: "MLS AI Predictions",
+    intro: "AI MLS betting predictions for US soccer matches.",
+    helper: "Home advantage is stronger."
+  },
+  WC: {
+    sport: "Soccer",
+    league: "World Cup",
+    title: "World Cup AI Predictions",
+    intro: "AI-generated World Cup match predictions for informational use.",
+    helper: "International variance is higher."
+  },
+
+  // TENNIS
+  ATP: {
+    sport: "Tennis",
+    league: "ATP Tour",
+    title: "ATP Tennis AI Predictions",
+    intro: "AI-powered ATP tennis predictions.",
+    helper: "Surface matters significantly."
+  },
+  WTA: {
+    sport: "Tennis",
+    league: "WTA Tour",
+    title: "WTA Tennis AI Predictions",
+    intro: "AI-powered WTA tennis predictions.",
+    helper: "Form swings are common."
+  },
+
+  // GOLF
+  PGA: {
+    sport: "Golf",
+    league: "PGA Tour",
+    title: "PGA Tour AI Predictions",
+    intro: "AI predictions for PGA Tour golf tournaments.",
+    helper: "Course fit is critical."
+  },
+  LPGA: {
+    sport: "Golf",
+    league: "LPGA",
+    title: "LPGA AI Predictions",
+    intro: "AI-based LPGA golf predictions.",
+    helper: "Field strength varies by event."
+  },
+
+  // CRICKET
+  CricketT20: {
+    sport: "Cricket",
+    league: "T20",
+    title: "T20 Cricket AI Predictions",
+    intro: "AI-powered T20 cricket predictions.",
+    helper: "High variance format."
+  },
+  CricketODI: {
+    sport: "Cricket",
+    league: "ODI",
+    title: "ODI Cricket AI Predictions",
+    intro: "AI-generated ODI cricket predictions.",
+    helper: "Form consistency matters."
+  },
+  CricketTest: {
+    sport: "Cricket",
+    league: "Test",
+    title: "Test Cricket AI Predictions",
+    intro: "AI predictions for Test cricket matches.",
+    helper: "Pitch conditions matter most."
+  }
+};
+
+function applyAllSportPresets() {
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get("sport");
+  if (!key || !sportPresets[key]) return;
+
+  const preset = sportPresets[key];
+
+  // Set selects
+  sportSelect.value = preset.sport;
+  sportSelect.dispatchEvent(new Event("change"));
+
+  setTimeout(() => {
+    leagueSelect.value = preset.league;
+  }, 50);
+
+  // Swap content
+  const titleEl = document.getElementById("aiTitle");
+  const introEl = document.getElementById("aiIntro");
+  const helperEl = document.getElementById("aiHelper");
+
+  if (titleEl) titleEl.textContent = preset.title;
+  if (introEl) introEl.textContent = preset.intro;
+  if (helperEl) helperEl.textContent = preset.helper;
+
+  // Scroll to AI
+  document.getElementById("ai-predictions")
+    ?.scrollIntoView({ behavior: "smooth" });
+}
+
+// ============================
 // URL PARAM PRESETS
 // ============================
 
@@ -143,6 +352,8 @@ window.addEventListener("scroll", () => {
     stickyCta.setAttribute("aria-hidden", "true");
   }
     applyUrlPresets();
+    applyAllSportPresets();
+
 });
 
 // ============================
