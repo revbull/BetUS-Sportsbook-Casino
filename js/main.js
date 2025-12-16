@@ -2,7 +2,7 @@
 // CONFIG
 // ============================
 
-const AFFILIATE_URL = "YOUR_AFFILIATE_LINK"; // replace
+const AFFILIATE_URL = "YOUR_AFFILIATE_LINK"; // Replace with your actual affiliate link
 
 const leaguesBySport = {
   Basketball: ["NBA", "WNBA"],
@@ -20,7 +20,7 @@ const leaguesBySport = {
 const betTypes = ["Moneyline", "Point Spread", "Over / Under"];
 
 // ============================
-// DOM
+// DOM Elements
 // ============================
 
 const sportSelect = document.getElementById("sport");
@@ -47,7 +47,7 @@ const sportPresets = {
     sport: "Basketball",
     league: "NBA",
     title: "NBA AI Predictions",
-    intro: "Generate AI-powered NBA betting predictions for informational use.",
+    intro: "Generate AI-powered NBA predictions for informational use.",
     helper: "Strong for totals and player props.",
     example: "Lakers vs Celtics"
   },
@@ -59,31 +59,33 @@ const sportPresets = {
     helper: "Best for totals and moneyline.",
     example: "Yankees vs Red Sox"
   }
-  // → можеш да добавяш още без риск
+  // Add more presets here in the same format if desired
 };
 
 // ============================
 // INIT
 // ============================
 
-populateLeagues();
-applyPresetFromUrl();
+window.addEventListener("DOMContentLoaded", () => {
+  fillLeaguesOnSportChange();
+  applyPresetFromUrl();
+  attachFormHandlers();
+  initStickyCTA();
+});
 
 // ============================
 // FUNCTIONS
 // ============================
 
-function populateLeagues() {
+function fillLeaguesOnSportChange() {
   sportSelect?.addEventListener("change", () => {
     leagueSelect.innerHTML = `<option value="">Select League</option>`;
-    const leagues = leaguesBySport[sportSelect.value];
-    if (!leagues) return;
-
-    leagues.forEach((l) => {
-      const o = document.createElement("option");
-      o.value = l;
-      o.textContent = l;
-      leagueSelect.appendChild(o);
+    const leagues = leaguesBySport[sportSelect.value] || [];
+    leagues.forEach(l => {
+      const option = document.createElement("option");
+      option.value = l;
+      option.textContent = l;
+      leagueSelect.appendChild(option);
     });
   });
 }
@@ -92,49 +94,49 @@ function applyPresetFromUrl() {
   const key = new URLSearchParams(window.location.search).get("sport");
   if (!key || !sportPresets[key]) return;
 
-  const p = sportPresets[key];
+  const preset = sportPresets[key];
 
-  sportSelect.value = p.sport;
+  sportSelect.value = preset.sport;
   sportSelect.dispatchEvent(new Event("change"));
 
   setTimeout(() => {
-    leagueSelect.value = p.league;
+    leagueSelect.value = preset.league;
   }, 50);
 
-  document.getElementById("aiTitle")?.textContent = p.title;
-  document.getElementById("aiIntro")?.textContent = p.intro;
-  document.getElementById("aiHelper")?.textContent = p.helper;
+  document.getElementById("aiTitle")?.textContent = preset.title;
+  document.getElementById("aiIntro")?.textContent = preset.intro;
+  document.getElementById("aiHelper")?.textContent = preset.helper;
 
-  if (p.example) {
-    document.getElementById("matchup").value = p.example;
-    document.getElementById("aiExample").textContent =
-      `Example matchup: ${p.example}`;
+  if (preset.example) {
+    const matchupInput = document.getElementById("matchup");
+    const exampleEl = document.getElementById("aiExample");
+    if (matchupInput) matchupInput.value = preset.example;
+    if (exampleEl) exampleEl.textContent = `Example matchup: ${preset.example}`;
   }
 }
 
-// ============================
-// FORM SUBMIT
-// ============================
-
-form?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const matchup = document.getElementById("matchup").value.trim();
-  if (!sportSelect.value || !leagueSelect.value || !matchup) {
-    alert("Please complete all fields.");
-    return;
-  }
-
-  renderPrediction({
-    sport: sportSelect.value,
-    league: leagueSelect.value,
-    matchup
+function attachFormHandlers() {
+  form?.addEventListener("submit", e => {
+    e.preventDefault();
+    const matchup = document.getElementById("matchup").value.trim();
+    if (!sportSelect.value || !leagueSelect.value || !matchup) {
+      alert("Please complete all fields.");
+      return;
+    }
+    renderPrediction({
+      sport: sportSelect.value,
+      league: leagueSelect.value,
+      matchup
+    });
   });
-});
 
-// ============================
-// AI ENGINE
-// ============================
+  resetBtn?.addEventListener("click", () => {
+    form.reset();
+    leagueSelect.innerHTML = `<option value="">Select League</option>`;
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+  });
+}
 
 function renderPrediction({ sport, league, matchup }) {
   const probability = randomBetween(52, 68);
@@ -172,9 +174,9 @@ function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getConfidence(p) {
-  if (p >= 65) return "High";
-  if (p >= 58) return "Medium";
+function getConfidence(val) {
+  if (val >= 65) return "High";
+  if (val >= 58) return "Medium";
   return "Low";
 }
 
@@ -185,12 +187,17 @@ function escapeHtml(str) {
     .replaceAll(">", "&gt;");
 }
 
-// ============================
-// STICKY CTA
-// ============================
+function initStickyCTA() {
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY || 0;
+    if (!stickyCta) return;
+    if (y > 500) stickyCta.classList.add("is-visible");
+    else stickyCta.classList.remove("is-visible");
+  });
+}
 
 function escalateStickyCta() {
   if (!stickyCta) return;
-  stickyCta.classList.add("is-visible");
-  stickyCta.querySelector("strong").textContent = "Exclusive BetUS Bonus";
+  stickyCta.querySelector("strong")?.textContent = "Exclusive BetUS Bonus";
+  stickyCta.querySelector(".muted")?.textContent = "Limited availability for new US players";
 }
