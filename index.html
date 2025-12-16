@@ -223,65 +223,90 @@
       </div>
     </section>
 
-    <!-- AI Predictions -->
-    <section id="ai-predictions" class="section section--alt">
-      <div class="container">
-        <div class="section__head">
-       <h2 id="aiTitle">AI Sports Betting Predictions</h2>
-<p id="aiIntro" class="section__sub">
-  Select a sport, league, and matchup to generate an informational prediction.
-</p>
+  <!-- AI Predictions -->
+<section id="ai-predictions" class="section section--alt">
+  <div class="container">
 
-<p id="aiHelper" class="micro"></p>
+    <!-- SECTION HEADER -->
+    <div class="section__head">
+      <h2 id="aiTitle">AI Sports Betting Predictions</h2>
 
+      <p id="aiIntro" class="section__sub">
+        Select a sport, league, and matchup to generate an informational AI-based prediction.
+      </p>
 
+      <p id="aiHelper" class="micro"></p>
+      <p id="aiExample" class="micro"></p>
+    </div>
+
+    <!-- AI TOOL -->
+    <div class="ai-wrap">
+      <form id="aiForm" class="ai-form" autocomplete="off">
+
+        <!-- SPORT -->
+        <div class="field">
+          <label for="sport">Sport</label>
+          <select id="sport">
+            <option value="">Select Sport</option>
+            <option>Basketball</option>
+            <option>Baseball</option>
+            <option>Cricket</option>
+            <option>Football</option>
+            <option>Golf</option>
+            <option>Hockey</option>
+            <option>MMA</option>
+            <option>Motorsport</option>
+            <option>Soccer</option>
+            <option>Tennis</option>
+          </select>
         </div>
 
-        <div class="ai-wrap">
-          <form id="aiForm" class="ai-form" autocomplete="off">
-            <div class="field">
-              <label for="sport">Sport</label>
-              <select id="sport" required>
-                <option value="">Select Sport</option>
-                <option>Basketball</option>
-                <option>Baseball</option>
-                <option>Cricket</option>
-                <option>Football</option>
-                <option>Golf</option>
-                <option>Hockey</option>
-                <option>MMA</option>
-                <option>Motorsport</option>
-                <option>Soccer</option>
-                <option>Tennis</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="league">League</label>
-              <select id="league" required>
-                <option value="">Select League</option>
-              </select>
-            </div>
-
-            <div class="field field--wide">
-              <label for="matchup">Matchup</label>
-              <input id="matchup" type="text" placeholder="e.g. Lakers vs Celtics" required />
-            </div>
-
-            <div class="field field--actions">
-              <button type="submit" class="btn btn--primary btn--block">Generate AI Prediction</button>
-              <button type="button" class="btn btn--subtle btn--block" id="aiReset">Reset</button>
-            </div>
-          </form>
-
-          <div id="aiResult" class="ai-result" style="display:none;"></div>
+        <!-- LEAGUE -->
+        <div class="field">
+          <label for="league">League</label>
+          <select id="league">
+            <option value="">Select League</option>
+          </select>
         </div>
 
-        <p class="disclaimer">
-          AI predictions are provided for informational purposes only and do not guarantee any outcome. Always bet responsibly.
-        </p>
-      </div>
-    </section>
+        <!-- MATCHUP -->
+        <div class="field field--wide">
+          <label for="matchup">Matchup</label>
+          <input
+            id="matchup"
+            type="text"
+            placeholder="e.g. Lakers vs Celtics"
+          />
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="field field--actions">
+          <button type="submit" class="btn btn--primary btn--block">
+            Generate AI Prediction
+          </button>
+
+          <button
+            type="button"
+            id="aiReset"
+            class="btn btn--subtle btn--block">
+            Reset
+          </button>
+        </div>
+      </form>
+
+      <!-- RESULT -->
+      <div id="aiResult" class="ai-result" style="display:none;"></div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <p class="disclaimer">
+      AI predictions are provided for informational purposes only and do not guarantee any outcome.
+      Betting involves risk. Always wager responsibly.
+    </p>
+
+  </div>
+</section>
+
 
     <!-- Pros & Cons -->
     <section class="section" id="pros-cons">
