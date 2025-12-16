@@ -24,6 +24,25 @@ const betTypes = ["Moneyline", "Point Spread", "Over / Under"];
 // ============================
 
 function applyUrlPresets() {
+  function applyDynamicAiCopy(sportParam) {
+  const title = document.getElementById("aiTitle");
+  const intro = document.getElementById("aiIntro");
+
+  if (!title || !intro) return;
+
+  if (sportParam === "NFL") {
+    title.textContent = "NFL AI Predictions";
+    intro.textContent =
+      "Generate free AI-powered NFL betting predictions for informational use. Compare NFL odds at BetUS.";
+  }
+
+  if (sportParam === "NBA") {
+    title.textContent = "NBA AI Predictions";
+    intro.textContent =
+      "Generate AI-powered NBA betting predictions and compare basketball markets at BetUS.";
+  }
+}
+
   const params = new URLSearchParams(window.location.search);
   const sportParam = params.get("sport");
 
