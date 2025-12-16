@@ -426,4 +426,28 @@ a{ color: inherit; }
   box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 .exit-card h3{ margin-top:0; }
+.ai-feed {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.ai-feed li {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 15px;
+}
+
+.ai-feed a {
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .ai-feed li {
+    font-size: 14px;
+  }
+}
+
 
