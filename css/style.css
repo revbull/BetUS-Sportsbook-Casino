@@ -462,6 +462,12 @@ a{ color: inherit; }
   line-height: 1.4;
 }
 
+.internal-links a {
+  display: inline-block;
+  margin: 6px 12px 0 0;
+  font-weight: 600;
+}
+
 .news-feed a {
   font-weight: 600;
   margin-left: 6px;
