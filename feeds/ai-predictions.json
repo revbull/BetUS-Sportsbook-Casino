@@ -1,0 +1,23 @@
+[
+  {
+    "sport": "NFL",
+    "matchup": "Chiefs vs Bills",
+    "market": "Moneyline",
+    "confidence": "Medium",
+    "url": "/ai-sports-predictions/?sport=NFL"
+  },
+  {
+    "sport": "NBA",
+    "matchup": "Lakers vs Celtics",
+    "market": "Over / Under",
+    "confidence": "Medium",
+    "url": "/ai-sports-predictions/?sport=NBA"
+  },
+  {
+    "sport": "MLB",
+    "matchup": "Yankees vs Red Sox",
+    "market": "Moneyline",
+    "confidence": "Low",
+    "url": "/ai-sports-predictions/?sport=MLB"
+  }
+]
