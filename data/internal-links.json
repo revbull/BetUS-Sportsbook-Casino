@@ -1,0 +1,6 @@
+{
+  "NFL": "/ai-sports-predictions/nfl/",
+  "NBA": "/ai-sports-predictions/nba/",
+  "MLB": "/ai-sports-predictions/mlb/",
+  "UFC": "/ai-sports-predictions/ufc/"
+}
