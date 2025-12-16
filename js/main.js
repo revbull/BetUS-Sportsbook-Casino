@@ -116,11 +116,21 @@ function renderPrediction({ sport, league, matchup }) {
       <span class="badge">${confidenceLabel}</span>
     </div>
 
-    <div style="margin-top:12px;">
-      <a class="btn btn--primary btn--block" href="${AFFILIATE_URL}" rel="nofollow sponsored">
-        Bet on ${safeMatchup} at BetUS
-      </a>
-    </div>
+   <div style="margin-top:12px;">
+  <a class="btn btn--primary btn--block"
+     href="${AFFILIATE_URL}"
+     rel="nofollow sponsored">
+     Bet on ${safeMatchup} at BetUS
+  </a>
+
+  <a class="btn btn--subtle btn--block"
+     href="${AFFILIATE_URL}"
+     rel="nofollow sponsored"
+     style="margin-top:8px;">
+     Claim Bonus Before Betting
+  </a>
+</div>
+
 
     <p class="fineprint" style="margin-top:10px;">
       This prediction is informational only and does not guarantee outcomes. Odds and availability are subject to BetUS terms.
