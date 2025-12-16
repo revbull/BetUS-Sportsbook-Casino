@@ -4,54 +4,59 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: "0 4 * * *"   # всеки ден
+    - cron: "0 4 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   sitemap:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Generate sitemap.xml
         run: |
-          python << 'EOF'
-          import os
-from datetime import datetime
+          echo 'import os
+          from datetime import datetime
 
-BASE_URL = "https://revbull.github.io/BetUS-Sportsbook-Casino"
+          BASE_URL = "https://revbull.github.io/BetUS-Sportsbook-Casino"
 
-urls = []
+          urls = []
 
-for root, dirs, files in os.walk("."):
-    if "index.html" in files:
-        path = root.replace("./", "").strip("/")
-        if path.startswith(".git") or path.startswith("node_modules"):
-            continue
+          for root, dirs, files in os.walk("."):
+              if root.startswith("./.git") or root.startswith("./node_modules"):
+                  continue
 
-        if path:
-            urls.append(f"{BASE_URL}/{path}/")
-        else:
-            urls.append(f"{BASE_URL}/")
+              if "index.html" in files:
+                  path = root.replace("./", "").strip("/")
+                  if path:
+                      urls.append(f"{BASE_URL}/{path}/")
+                  else:
+                      urls.append(f"{BASE_URL}/")
 
-sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
-sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+          sitemap = ["<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>"]
+          sitemap.append("<urlset xmlns=\\"http://www.sitemaps.org/schemas/sitemap/0.9\\">")
 
-for url in sorted(set(urls)):
-    sitemap.append("  <url>")
-    sitemap.append(f"    <loc>{url}</loc>")
-    sitemap.append(f"    <lastmod>{datetime.utcnow().date()}</lastmod>")
-    sitemap.append("    <changefreq>daily</changefreq>")
-    sitemap.append("    <priority>0.8</priority>")
-    sitemap.append("  </url>")
+          today = str(datetime.utcnow().date())
+          for url in sorted(set(urls)):
+              sitemap.append("  <url>")
+              sitemap.append(f"    <loc>{url}</loc>")
+              sitemap.append(f"    <lastmod>{today}</lastmod>")
+              sitemap.append("    <changefreq>daily</changefreq>")
+              sitemap.append("    <priority>0.8</priority>")
+              sitemap.append("  </url>")
 
-sitemap.append("</urlset>")
+          sitemap.append("</urlset>")
 
-with open("sitemap.xml", "w") as f:
-    f.write("\n".join(sitemap))
+          with open("sitemap.xml", "w", encoding="utf-8") as f:
+              f.write("\\n".join(sitemap))
+          ' > generate_sitemap.py
 
-          EOF
+          python generate_sitemap.py
 
       - name: Commit sitemap
         run: |
