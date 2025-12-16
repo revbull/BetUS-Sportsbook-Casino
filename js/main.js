@@ -190,3 +190,18 @@ function escapeHtml(str) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+let exitShown = false;
+const exitModal = document.getElementById("exitModal");
+const exitClose = document.getElementById("exitClose");
+
+document.addEventListener("mouseout", (e) => {
+  if (exitShown) return;
+  if (e.clientY <= 0) {
+    exitShown = true;
+    exitModal.style.display = "flex";
+  }
+});
+
+exitClose?.addEventListener("click", () => {
+  exitModal.style.display = "none";
+});
