@@ -227,6 +227,55 @@ function applyAllSportPresets() {
   document.getElementById("ai-predictions")
     ?.scrollIntoView({ behavior: "smooth" });
 }
+    applyExampleMatchup(key);
+
+// ============================
+// AUTO-EXAMPLE MATCHUPS
+// ============================
+
+const exampleMatchups = {
+  // FOOTBALL
+  NFL: "Chiefs vs Bills",
+  NCAAF: "Alabama vs Georgia",
+
+  // BASKETBALL
+  NBA: "Lakers vs Celtics",
+  WNBA: "Aces vs Liberty",
+
+  // BASEBALL
+  MLB: "Yankees vs Red Sox",
+  NPB: "Yomiuri Giants vs Hanshin Tigers",
+  KBO: "Doosan Bears vs LG Twins",
+
+  // HOCKEY
+  NHL: "Maple Leafs vs Bruins",
+
+  // MMA
+  UFC: "Jon Jones vs Stipe Miocic",
+  Bellator: "McKee vs Pitbull",
+
+  // MOTORSPORT
+  F1: "Verstappen vs Hamilton",
+  NASCAR: "Kyle Larson vs Denny Hamlin",
+
+  // SOCCER
+  EPL: "Manchester City vs Arsenal",
+  MLS: "LA Galaxy vs Inter Miami",
+  WC: "Brazil vs Argentina",
+
+  // TENNIS
+  ATP: "Djokovic vs Alcaraz",
+  WTA: "Swiatek vs Sabalenka",
+
+  // GOLF
+  PGA: "Scheffler vs McIlroy",
+  LPGA: "Korda vs Ko",
+
+  // CRICKET
+  CricketT20: "India vs Pakistan",
+  CricketODI: "England vs Australia",
+  CricketTest: "India vs Australia"
+};
 
 // ============================
 // URL PARAM PRESETS
@@ -447,6 +496,21 @@ function getLeanText(betType) {
       return "Lean based on pace/scoring tendencies (informational).";
     default:
       return "Informational lean based on historical patterns.";
+  }
+}
+function applyExampleMatchup(sportKey) {
+  const example = exampleMatchups[sportKey];
+  if (!example) return;
+
+  const matchupInput = document.getElementById("matchup");
+  const exampleEl = document.getElementById("aiExample");
+
+  if (matchupInput) {
+    matchupInput.value = example;
+  }
+
+  if (exampleEl) {
+    exampleEl.textContent = `Example matchup: ${example}`;
   }
 }
 
