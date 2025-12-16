@@ -100,43 +100,52 @@
     </div>
   </section>
 
-  <!-- AI PREDICTIONS -->
-  <section id="ai-predictions" class="section alt">
-    <div class="container">
-      <h2>AI Sports Predictions</h2>
-      <p>Select a sport and matchup to generate an AI-based prediction.</p>
+ <!-- AI PREDICTIONS -->
+<section id="ai-predictions" class="section alt">
+  <div class="container">
+    <h2>AI Sports Predictions</h2>
+    <p>Select a sport, league, and matchup to generate an AI-based prediction.</p>
 
-      <form class="ai-form">
-        <select>
-          <option>Select Sport</option>
-          <option>Basketball</option>
-          <option>Football</option>
-          <option>Baseball</option>
-          <option>Soccer</option>
-        </select>
+    <!-- AI FORM -->
+    <form id="aiForm" class="ai-form">
 
-        <select>
-          <option>Select League</option>
-          <option>NFL</option>
-          <option>NBA</option>
-          <option>MLB</option>
-        </select>
+      <select id="sport">
+        <option value="">Select Sport</option>
+        <option>Basketball</option>
+        <option>Baseball</option>
+        <option>Cricket</option>
+        <option>Football</option>
+        <option>Golf</option>
+        <option>Hockey</option>
+        <option>MMA</option>
+        <option>Motorsport</option>
+        <option>Soccer</option>
+        <option>Tennis</option>
+      </select>
 
-        <input type="text" placeholder="Enter Matchup (e.g. Lakers vs Celtics)" />
+      <select id="league">
+        <option value="">Select League</option>
+      </select>
 
-        <button type="button" class="btn primary">Generate AI Prediction</button>
-      </form>
+      <input
+        id="matchup"
+        type="text"
+        placeholder="e.g. Lakers vs Celtics"
+      />
 
-      <div class="ai-result">
-        <p><strong>Prediction:</strong> Home Team Win – 58%</p>
-        <p><strong>Confidence:</strong> Medium</p>
-      </div>
+      <button type="submit" class="btn primary">
+        Generate AI Prediction
+      </button>
+    </form>
 
-      <p class="disclaimer">
-        Predictions are informational only and do not guarantee winnings.
-      </p>
-    </div>
-  </section>
+    <!-- AI RESULT -->
+    <div id="aiResult" class="ai-result" style="display:none;"></div>
+
+    <p class="disclaimer">
+      Predictions are informational only and do not guarantee winnings.
+    </p>
+  </div>
+</section>
 
   <!-- PROS & CONS -->
   <section class="section">
