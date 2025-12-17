@@ -119,6 +119,48 @@
       font-size:13px;
       line-height:1.45;
     }
+    .ai-hero h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ai-hero-item {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid var(--line);
+}
+
+.ai-hero-item:last-of-type {
+  margin-bottom: 12px;
+}
+
+.ai-hero .ai-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+.ai-hero .ai-text {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ai-hero .ai-note {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: rgba(255,255,255,.6);
+}
+
+.ai-hero-disclaimer {
+  font-size: 11.5px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.45;
+}
+
     .disclosure strong{color:var(--text)}
     .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px;}
     .kpi{
@@ -265,12 +307,35 @@
         </div>
       </div>
 
-      <aside class="card hero-side">
-        <p class="aside-title">Affiliate disclosure</p>
-        <div class="disclosure">
-          <strong>Прозрачност:</strong> На тази страница има афилиейт линкове. Ако се регистрираш/депозираш през тях,
-          може да получим комисиона без допълнителен разход за теб. Това подпомага създаването на съдържание.
-        </div>
+     <aside class="card hero-side ai-hero">
+  <p class="aside-title">AI-assisted insights</p>
+
+  <div class="ai-hero-item">
+    <h4>Team A vs Team B</h4>
+    <p class="ai-meta">NBA • Tonight</p>
+    <p class="ai-text">
+      Model indicators suggest a tighter matchup than market averages,
+      with pace and recent efficiency pointing to higher variance.
+    </p>
+    <span class="ai-note">Confidence: Low–Moderate</span>
+  </div>
+
+  <div class="ai-hero-item">
+    <h4>Team C vs Team D</h4>
+    <p class="ai-meta">NFL • Week matchup</p>
+    <p class="ai-text">
+      Historical data highlights defensive consistency and slower tempo
+      relative to league norms.
+    </p>
+    <span class="ai-note">Confidence: Moderate</span>
+  </div>
+
+  <p class="ai-hero-disclaimer">
+    AI insights are based on statistical models and historical data.
+    Provided for informational and entertainment purposes only.
+  </p>
+</aside>
+
 
         <div class="kpis" aria-label="Ключови индикатори">
           <div class="kpi">
