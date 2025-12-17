@@ -1,79 +1,66 @@
-name: Update Sports News Feeds
+- name: Update sports news feeds
+  run: |
+    python << 'EOF'
+    import json
+    import feedparser
+    from datetime import datetime
+    import os
 
-on:
-  schedule:
-    - cron: "0 */6 * * *"   # на всеки 6 часа
-  workflow_dispatch:
+    FEEDS = {
+        "NFL": [
+            ("ESPN", "https://www.espn.com/espn/rss/nfl/news"),
+            ("CBS", "https://www.cbssports.com/rss/headlines/nfl/"),
+            ("Yahoo", "https://sports.yahoo.com/nfl/rss.xml")
+        ],
+        "NBA": [
+            ("ESPN", "https://www.espn.com/espn/rss/nba/news"),
+            ("CBS", "https://www.cbssports.com/rss/headlines/nba/"),
+            ("Yahoo", "https://sports.yahoo.com/nba/rss.xml")
+        ],
+        "MLB": [
+            ("ESPN", "https://www.espn.com/espn/rss/mlb/news"),
+            ("CBS", "https://www.cbssports.com/rss/headlines/mlb/"),
+            ("Yahoo", "https://sports.yahoo.com/mlb/rss.xml")
+        ],
+        "NHL": [
+            ("ESPN", "https://www.espn.com/espn/rss/nhl/news"),
+            ("CBS", "https://www.cbssports.com/rss/headlines/nhl/"),
+            ("Yahoo", "https://sports.yahoo.com/nhl/rss.xml")
+        ]
+    }
 
-permissions:
-  contents: write   # 🔴 ЗАДЪЛЖИТЕЛНО за git push
+    os.makedirs("feeds", exist_ok=True)
 
-jobs:
-  update-feeds:
-    runs-on: ubuntu-latest
+    output = {}
 
-    steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    for sport, sources in FEEDS.items():
+        items = []
 
-      # 2️⃣ Setup Python
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
+        for source_name, url in sources:
+            feed = feedparser.parse(url)
 
-      # 3️⃣ Install dependencies
-      - name: Install Python dependencies
-        run: |
-          pip install feedparser
+            for entry in feed.entries[:4]:
+                items.append({
+                    "title": entry.get("title", "").strip(),
+                    "link": entry.get("link", ""),
+                    "published": entry.get("published", ""),
+                    "source": source_name
+                })
 
-      # 4️⃣ Generate sports news feed JSON
-      - name: Update sports news feeds
-        run: |
-          python << 'EOF'
-          import json
-          import feedparser
-          from datetime import datetime
-          import os
+        # Deduplicate by title
+        seen = set()
+        deduped = []
+        for item in items:
+            if item["title"] and item["title"] not in seen:
+                seen.add(item["title"])
+                deduped.append(item)
 
-          FEEDS = {
-              "NFL": "https://www.espn.com/espn/rss/nfl/news",
-              "NBA": "https://www.espn.com/espn/rss/nba/news",
-              "MLB": "https://www.espn.com/espn/rss/mlb/news",
-              "NHL": "https://www.espn.com/espn/rss/nhl/news"
-          }
+        output[sport] = deduped[:6]
 
-          os.makedirs("feeds", exist_ok=True)
+    output["updated"] = datetime.utcnow().isoformat() + "Z"
 
-          output = {}
+    with open("feeds/sports-news.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
-          for sport, url in FEEDS.items():
-              feed = feedparser.parse(url)
-              output[sport] = []
-
-              for entry in feed.entries[:5]:
-                  output[sport].append({
-                      "title": entry.title,
-                      "link": entry.link,
-                      "published": entry.get("published", ""),
-                      "source": "ESPN"
-                  })
-
-          output["updated"] = datetime.utcnow().isoformat() + "Z"
-
-          with open("feeds/sports-news.json", "w", encoding="utf-8") as f:
-              json.dump(output, f, indent=2, ensure_ascii=False)
-
-          print("✅ Sports news feed updated")
-          EOF
-
-      # 5️⃣ Commit & push if changed
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          git add feeds/sports-news.json
-          git diff --cached --quiet || git commit -m "Auto-update sports news feeds"
-          git push
+    print("✅ Multi-source sports news feed updated")
+    EOF
