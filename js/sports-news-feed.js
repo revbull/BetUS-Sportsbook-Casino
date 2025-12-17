@@ -33,4 +33,22 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => {
       /* silent fail */
     });
+  {
+  "NFL": [
+    {
+      "title": "Chiefs vs Bills playoff implications",
+      "link": "https://www.cbssports.com/...",
+      "published": "Mon, 16 Dec 2025 10:30:00 GMT",
+      "source": "CBS"
+    },
+    {
+      "title": "NFL Week 15 injury updates",
+      "link": "https://sports.yahoo.com/...",
+      "published": "",
+      "source": "Yahoo"
+    }
+  ],
+  "updated": "2025-12-16T09:40:12Z"
+}
+
 });
