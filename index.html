@@ -309,15 +309,28 @@
     </p>
 
     <ul id="aiFeed" class="ai-feed">
-      <!-- SSR fallback -->
-      <li>
-        <strong>NFL:</strong> Chiefs vs Bills –
-        <span>Moneyline · Medium confidence</span>
-        <a href="/BetUS-Sportsbook-Casino/ai-sports-predictions/?sport=NFL">
-          View Prediction
-        </a>
-      </li>
-    </ul>
+      <ul id="aiFeed" class="ai-feed ai-feed--cards">
+  <!-- SSR fallback -->
+  <li class="feed-card">
+    <div class="feed-card__meta">
+      <span class="feed-pill">NFL</span>
+      <span class="feed-confidence">Medium</span>
+    </div>
+
+    <h3 class="feed-title">Chiefs vs Bills</h3>
+
+    <p class="feed-desc">
+      Suggested market: Moneyline · AI confidence based on historical trends.
+    </p>
+
+    <div class="feed-actions">
+      <a href="/BetUS-Sportsbook-Casino/ai-sports-predictions/?sport=NFL"
+         class="feed-link">
+        View AI Prediction →
+      </a>
+    </div>
+  </li>
+</ul>
   </div>
 </section>
 
