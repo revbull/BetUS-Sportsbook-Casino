@@ -30,4 +30,10 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://revbull.github.io/BetUS-Sportsbook-Casino/ai-sports-predictions/nhl/</loc>
+    <lastmod>2025-12-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
