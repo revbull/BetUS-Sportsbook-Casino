@@ -21,9 +21,95 @@
     content="BetUS sportsbook & casino review for US players. Bonuses, markets, and AI predictions." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://revbull.github.io/BetUS-Sportsbook-Casino/" />
+  <style>
+/* ===== CRITICAL CSS (ABOVE THE FOLD) ===== */
+:root{
+  --bg-dark:#0b1220;
+  --gold:#d4af37;
+  --text-light:rgba(255,255,255,.9);
+  --line-dark:rgba(255,255,255,.12);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#fff;
+  color:#0f172a;
+}
+
+.container{
+  max-width:1120px;
+  padding:0 16px;
+  margin:0 auto;
+}
+
+/* Topbar */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#0a1020;
+  color:var(--text-light);
+  border-bottom:1px solid var(--line-dark);
+}
+.topbar__inner{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  font-size:.85rem;
+}
+
+/* Sticky nav */
+.sticky-nav{
+  position:sticky;
+  top:44px;
+  z-index:40;
+  background:rgba(255,255,255,.95);
+  border-bottom:1px solid #e5e7eb;
+}
+.sticky-nav__inner{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  padding:6px 0;
+}
+.sticky-tab{
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:700;
+  background:#f1f5f9;
+  text-decoration:none;
+  color:#0f172a;
+}
+.sticky-tab--primary{
+  background:var(--gold);
+  color:#111;
+}
+
+/* Hero */
+.hero{
+  background:#0b1220;
+  color:var(--text-light);
+  padding:48px 0 40px;
+}
+.hero h1{
+  font-size:clamp(2rem,6vw,3rem);
+  margin-bottom:12px;
+}
+.subtitle{
+  max-width:60ch;
+  color:rgba(255,255,255,.8);
+}
+</style>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+ <link rel="preload" href="css/style.css" as="style" onload="this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="css/style.css">
+</noscript>
+
 </head>
 
 <body>
@@ -99,7 +185,12 @@
     <p class="section__sub">
       Browse AI-powered sports prediction pages by league.
     </p>
-    <div id="internalLinks" class="internal-links"></div>
+    <div class="internal-links">
+  <a href="/BetUS-Sportsbook-Casino/ai-sports-predictions/nfl.html">NFL AI Predictions</a>
+  <a href="/BetUS-Sportsbook-Casino/ai-sports-predictions/nba.html">NBA AI Predictions</a>
+  <a href="/BetUS-Sportsbook-Casino/ai-sports-predictions/mlb.html">MLB AI Predictions</a>
+</div>
+
   </div>
 </section>
 
