@@ -201,3 +201,30 @@ function escalateStickyCta() {
   stickyCta.querySelector("strong")?.textContent = "Exclusive BetUS Bonus";
   stickyCta.querySelector(".muted")?.textContent = "Limited availability for new US players";
 }
+// Sticky nav active state
+const tabs = document.querySelectorAll(".sticky-tab");
+
+const sections = [
+  { id: "sports", tab: tabs[0] },
+  { id: "casino", tab: tabs[1] },
+  { id: "ai-predictions", tab: tabs[2] }
+];
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(({ id }) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    const top = section.offsetTop - 120;
+    if (window.scrollY >= top) {
+      current = id;
+    }
+  });
+
+  sections.forEach(({ id, tab }) => {
+    tab.classList.toggle("sticky-tab--primary", id === current);
+  });
+});
+
