@@ -342,12 +342,29 @@
       Recent headlines and matchup context from major US sports.
     </p>
 
-    <ul id="newsFeed" class="news-feed">
-      <!-- SSR fallback -->
-      <li>
-        <strong>NFL:</strong> Latest league updates and matchup news.
-      </li>
-    </ul>
+    <ul id="newsFeed" class="news-feed news-feed--cards">
+  <!-- SSR fallback -->
+  <li class="feed-card">
+    <div class="feed-card__meta">
+      <span class="feed-pill">NFL</span>
+      <span class="feed-time">Today</span>
+    </div>
+
+    <h3 class="feed-title">
+      Key injury updates ahead of Chiefs vs Bills
+    </h3>
+
+    <p class="feed-desc">
+      Latest reports may impact spreads and totals for this matchup.
+    </p>
+
+    <div class="feed-actions">
+      <a href="#ai-predictions" class="feed-link">
+        Analyze with AI →
+      </a>
+    </div>
+  </li>
+</ul>
   </div>
 </section>
 <!-- CASINO ZONE -->
