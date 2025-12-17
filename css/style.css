@@ -735,6 +735,43 @@ a{
   }
 }
 /* =========================
+   ACCESSIBILITY — COLOR CONTRAST
+========================= */
+
+/* Body text */
+body {
+  color: #0f172a; /* AA safe */
+}
+
+/* Muted text (AA safe on white) */
+p,
+.section__sub,
+.feed-desc {
+  color: #334155; /* вместо твърде светло сиво */
+}
+
+/* Micro / fineprint */
+.micro,
+.fineprint {
+  color: #475569;
+}
+
+/* Links */
+a {
+  color: #1d4ed8;
+}
+
+a:hover {
+  color: #1e40af;
+}
+
+/* Dark sections text */
+.section--dark p,
+.section--dark .micro {
+  color: rgba(255,255,255,.88);
+}
+
+/* =========================
    FEED CARDS UI
 ========================= */
 .ai-feed--cards,
@@ -816,4 +853,42 @@ a{
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* =========================
+   FOCUS STATES (AA)
+========================= */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(212,175,55,.7);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* =========================
+   BUTTON MICRO-POLISH
+========================= */
+.btn {
+  min-height: 44px; /* WCAG touch target */
+}
+
+.btn--primary {
+  box-shadow: 0 6px 18px rgba(212,175,55,.35);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 8px 22px rgba(212,175,55,.45);
+}
+/* =========================
+   READABILITY
+========================= */
+.section__sub,
+.feed-desc,
+.disclaimer {
+  max-width: 70ch;
+}
+
+.ai-result p {
+  line-height: 1.6;
+}
+
 
