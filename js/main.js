@@ -227,4 +227,15 @@ window.addEventListener("scroll", () => {
     tab.classList.toggle("sticky-tab--primary", id === current);
   });
 });
+// Optional: rotate first feed card
+const feeds = document.querySelectorAll(".ai-feed--cards, .news-feed--cards");
+
+feeds.forEach(feed => {
+  setInterval(() => {
+    const first = feed.firstElementChild;
+    if (!first) return;
+    feed.appendChild(first);
+  }, 8000);
+});
+
 
