@@ -3,17 +3,9 @@
     "sport": "NBA",
     "matchup": "Bucks vs Heat",
     "market": "Moneyline",
-    "confidence": "High",
-    "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-03-05T06:40:50.537088Z"
-  },
-  {
-    "sport": "NBA",
-    "matchup": "Warriors vs Suns",
-    "market": "Over / Under",
     "confidence": "Low",
     "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-03-05T06:40:50.537108Z"
+    "updated": "2026-03-06T06:37:20.450500Z"
   },
   {
     "sport": "NFL",
@@ -21,6 +13,14 @@
     "market": "Moneyline",
     "confidence": "Medium",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-03-05T06:40:50.537115Z"
+    "updated": "2026-03-06T06:37:20.450519Z"
+  },
+  {
+    "sport": "NBA",
+    "matchup": "Lakers vs Celtics",
+    "market": "Over / Under",
+    "confidence": "High",
+    "url": "/ai-sports-predictions/nba/",
+    "updated": "2026-03-06T06:37:20.450526Z"
   }
 ]
