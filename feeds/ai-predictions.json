@@ -3,17 +3,9 @@
     "sport": "NFL",
     "matchup": "Chiefs vs Bills",
     "market": "Moneyline",
-    "confidence": "High",
+    "confidence": "Low",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-09-13T10:51:31.418493Z"
-  },
-  {
-    "sport": "NBA",
-    "matchup": "Warriors vs Suns",
-    "market": "Over / Under",
-    "confidence": "Medium",
-    "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-09-13T10:51:31.418509Z"
+    "updated": "2026-09-14T11:20:49.820941Z"
   },
   {
     "sport": "NBA",
@@ -21,6 +13,14 @@
     "market": "Over / Under",
     "confidence": "High",
     "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-09-13T10:51:31.418515Z"
+    "updated": "2026-09-14T11:20:49.820954Z"
+  },
+  {
+    "sport": "NBA",
+    "matchup": "Warriors vs Suns",
+    "market": "Over / Under",
+    "confidence": "Medium",
+    "url": "/ai-sports-predictions/nba/",
+    "updated": "2026-09-14T11:20:49.820959Z"
   }
 ]
