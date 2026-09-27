@@ -1,26 +1,26 @@
 [
   {
+    "sport": "NBA",
+    "matchup": "Bucks vs Heat",
+    "market": "Moneyline",
+    "confidence": "High",
+    "url": "/ai-sports-predictions/nba/",
+    "updated": "2026-09-27T11:06:07.148309Z"
+  },
+  {
     "sport": "NFL",
     "matchup": "49ers vs Eagles",
     "market": "Point Spread",
     "confidence": "High",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-09-26T10:33:57.041888Z"
-  },
-  {
-    "sport": "NBA",
-    "matchup": "Warriors vs Suns",
-    "market": "Over / Under",
-    "confidence": "Medium",
-    "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-09-26T10:33:57.041902Z"
+    "updated": "2026-09-27T11:06:07.148325Z"
   },
   {
     "sport": "NFL",
     "matchup": "Chiefs vs Bills",
     "market": "Moneyline",
-    "confidence": "Low",
+    "confidence": "Medium",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-09-26T10:33:57.041907Z"
+    "updated": "2026-09-27T11:06:07.148330Z"
   }
 ]
