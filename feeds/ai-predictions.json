@@ -5,15 +5,15 @@
     "market": "Moneyline",
     "confidence": "Low",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-10-22T10:54:29.902212Z"
+    "updated": "2026-10-23T10:46:11.276067Z"
   },
   {
     "sport": "NBA",
     "matchup": "Warriors vs Suns",
     "market": "Over / Under",
-    "confidence": "Medium",
+    "confidence": "Low",
     "url": "/ai-sports-predictions/nba/",
-    "updated": "2026-10-22T10:54:29.902230Z"
+    "updated": "2026-10-23T10:46:11.276088Z"
   },
   {
     "sport": "NFL",
@@ -21,6 +21,6 @@
     "market": "Point Spread",
     "confidence": "Medium",
     "url": "/ai-sports-predictions/nfl/",
-    "updated": "2026-10-22T10:54:29.902237Z"
+    "updated": "2026-10-23T10:46:11.276091Z"
   }
 ]
